@@ -1,5 +1,8 @@
+# app/model/models.py
+
+from sqlalchemy import create_engine
 from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
+
 
 db = SQLAlchemy()
 
@@ -11,15 +14,19 @@ class Songs(db.Model):
     track_name = db.Column(db.String(100))
     track_id = db.Column(db.String(50))
     popularity = db.Column(db.Integer)
-    time_signature = db.Column(db.Integer)
-    tempo = db.Column(db.Float)
-    instrumentalness = db.Column(db.Float)
-    valence = db.Column(db.Float)
-    energy = db.Column(db.Float)
+    acousticness = db.Column(db.Float)
     danceability = db.Column(db.Float)
+    duration_ms = db.Column(db.Integer)
+    energy = db.Column(db.Float)
+    instrumentalness = db.Column(db.Float)
+    key = db.Column(db.Integer)
+    liveness = db.Column(db.Float)
     loudness = db.Column(db.Float)
-    analysis_url = db.Column(db.String(100))
-
+    mode = db.Column(db.Integer)
+    speechiness = db.Column(db.Float)
+    tempo = db.Column(db.Float)
+    time_signature = db.Column(db.Integer)
+    valence = db.Column(db.Float)
 
     def __repr__(self):
         return '<Song {}>'.format(self.track_name)
