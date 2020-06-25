@@ -1,3 +1,5 @@
 help
 .env
 .cache-dknddamde5rtumvp52cwoo83m
+
+*.db
