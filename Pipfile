@@ -17,6 +17,9 @@ scikit-learn = "*"
 psycopg2-binary = "*"
 spotipy = "*"
 pandas = "*"
+sklearn = "*"
+matplotlib = "*"
+flask-cors = "*"
 
 [requires]
 python_version = "3.7"
