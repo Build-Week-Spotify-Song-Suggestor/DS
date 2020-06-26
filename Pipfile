@@ -17,6 +17,10 @@ scikit-learn = "*"
 psycopg2-binary = "*"
 spotipy = "*"
 pandas = "*"
+sklearn = "*"
+sklearn-neighbors = "*"
+sklearn-model-selection = "*"
+numpy = "*"
 
 [requires]
 python_version = "3.7"

@@ -7,12 +7,6 @@ from app.model.models import db, Songs
 
 spotify_routes = Blueprint('spotify_routes',__name__)
 
-# Todo for today: add route that gives back-end what they need
-@spotify_routes.route("/")
-def get_track_info(tracks=['4uLU6hMCjMI75M1A2tKUQC']):
-    api = spotify_api_client()
-    return "works"
-
 
 # Todo for today: add route to add new track to database
 # @app.route('/add-track')
