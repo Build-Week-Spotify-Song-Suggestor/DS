@@ -18,9 +18,14 @@ psycopg2-binary = "*"
 spotipy = "*"
 pandas = "*"
 sklearn = "*"
+<<<<<<< HEAD
 sklearn-neighbors = "*"
 sklearn-model-selection = "*"
 numpy = "*"
+=======
+matplotlib = "*"
+flask-cors = "*"
+>>>>>>> c8da0b5ff4662a70cb8fd813a5afaa96d21fb7e3
 
 [requires]
 python_version = "3.7"
