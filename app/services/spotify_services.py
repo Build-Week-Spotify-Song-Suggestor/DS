@@ -1,10 +1,12 @@
 # app/services/spotify_services.py
 
 import os
-import spotipy.util as stil
+import spotipy.util as util
 import spotipy
+from spotipy.oauth2 import SpotifyClientCredentials
 from dotenv import load_dotenv
 from pprint import pprint
+import requests
 
 load_dotenv()
 
@@ -13,23 +15,19 @@ SPOTIFY_CLIENT_SECRET = os.getenv('SPOTIFY_CLIENT_SECRET')
 SPOTIFY_USERNAME = os.getenv('SPOTIFY_USERNAME')
 SPOTIFY_REDIRECT_URL = os.getenv('SPOTIFY_REDIRECT_URL')
 
-# helps connect spotify api
 def spotify_api_client():
-    try:
-        token = stil.prompt_for_user_token(
-            SPOTIFY_USERNAME, client_id=SPOTIFY_CLIENT_ID,
-            client_secret=SPOTIFY_CLIENT_SECRET, redirect_uri=SPOTIFY_REDIRECT_URL)
-    except:
-        # removes the cached user file that is generated if the initial try fails
-        os.remove(f".cache-{SPOTIFY_USERNAME}")
-        token = stil.prompt_for_user_token(
-            SPOTIFY_USERNAME, client_id=SPOTIFY_CLIENT_ID,
-            client_secret=SPOTIFY_CLIENT_SECRET, redirect_uri=SPOTIFY_REDIRECT_URL)
-    api = spotipy.Spotify(auth=token)
+    token = spotipy.oauth2.SpotifyClientCredentials(client_id=SPOTIFY_CLIENT_ID, client_secret=SPOTIFY_CLIENT_SECRET)
+    api = spotipy.Spotify(token)
     return api
 
 if __name__ == "__main__":
-    api = spotify_api_client()
+    api = spotify_api_client()    
+
+
+
+
+
+    
     #pprint(dir(api))
 
-    tracks = ['4uLU6hMCjMI75M1A2tKUQC',]
+     #tracks = ['4uLU6hMCjMI75M1A2tKUQC',]
