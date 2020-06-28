@@ -24,3 +24,5 @@ spotify_routes = Blueprint('spotify_routes',__name__)
 #         'danceability': feat[0]['danceability'], 'loudness': feat[0]['loudness'], 'key': feat[0]['key'], 'analysis_url': feat[0]['analysis_url']}
 
 #         result.update(addon)
+if __name__ == "__main__":
+    pass
