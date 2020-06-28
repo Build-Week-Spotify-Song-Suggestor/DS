@@ -29,7 +29,7 @@ def create_app():
     # populating it with the data in the csv file
     engine = create_engine(DATABASE_URI)
     Songs.metadata.create_all(engine)
-    filePath = os.path.join(os.path.dirname(__file__), "dataset", "most_popular_spotify_songs.csv")
+    filePath = os.path.join(os.path.dirname(__file__), "..", "most_popular_spotify_songs.csv")
     df = pd.read_csv(filePath)
     db = df.to_sql(con=engine, index_label='id',
                    name=Songs.__tablename__, if_exists='replace')
@@ -89,19 +89,19 @@ def create_app():
             d[col[0]] = row[idx]
         return d
 
-    @app.route('/track/<track_id>', methods=['GET'])
-    def track(track_id):
-        track_id = int(track_id)
-        conn = sqlite3.connect('spot_wavez.db')
-        conn.row_factory = dict_factory
-        curs = conn.cursor()
-        songlist = []
-        song_recs = closest_ten(database, X, track_id)
-        for idx in song_recs:
-            song = curs.execute(
-                f'SELECT DISTINCT * FROM Songs WHERE id=={idx};').fetchone()
-            songlist.append(song)
-        return jsonify(songlist)
+     #@app.route('/track/<track_id>', methods=['GET'])
+     #def track(track_id):
+         #track_id = int(track_id)
+         #conn = sqlite3.connect('spot_wavez.db')
+         #conn.row_factory = dict_factory
+         #curs = conn.cursor()
+         #songlist = []
+         #song_recs = closest_ten(database, X, track_id)
+         #for idx in song_recs:
+             #song = curs.execute(
+                 #f'SELECT DISTINCT * FROM Songs WHERE id=={idx};').fetchone()
+             #songlist.append(song)
+         #return jsonify(songlist)
 
     
     app.register_blueprint(spotify_routes)
@@ -111,3 +111,4 @@ def create_app():
 if __name__ == "__main__":
     app = create_app() # invokes the create_app function
     app.run(debug=True) # then runs the app
+    #tracks = ['4uLU6hMCjMI75M1A2tKUQC',]
