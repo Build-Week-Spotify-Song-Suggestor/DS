@@ -1,5 +1,5 @@
-# __init__.py
-from app.model.models import create_app
+from app.model.models import create_app, DB
 
-APP = create_app()
-    #tracks = ['4uLU6hMCjMI75M1A2tKUQC',]
+
+app = create_app()
+DB.init_app(app)

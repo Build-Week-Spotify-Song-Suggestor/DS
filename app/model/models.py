@@ -52,10 +52,12 @@ def create_app():
     app = Flask(__name__)
 
     # Makes the database persist on Heroku
-    app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///spot_wavez.db"
+    app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///../../spot_wavez.db"
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     # Connects and populates the database with the given structure of class Songs
-    engine = create_engine('sqlite:///spot_wavez.db')
+    engine = create_engine("sqlite:///../../spot_wavez.db")
     Songs.metadata.create_all(engine)
+
     file_name = ("app\dataset\most_popular_spotify_songs.csv")
     df = pd.read_csv(file_name)
     db = df.to_sql(con=engine, index_label='id',
@@ -122,22 +124,23 @@ def create_app():
           
     '''
         Main API route that takes in a Track ID sent from the user and pairs it with
-        a unique track_id from the database and returns the closest songs from our
+        a unique track_id from the database and returns the 10 recommendations of songs from our
         Machine Learning model.
+       
     '''
-    @app.route('/track/<track_id>', methods=['GET'])
-    def track(track_id):
-        track_id = int('track_id')
-        conn = sqlite3.connect('sqlite:///spot_wavez.db')
-        conn.row_factory = dict_factory
-        curs = conn.cursor()
-        songlist = []
+     #sqlite:///../../spot_wavez.db
+   
+
+    @app.route('/song/<track_id>', methods=['GET']) 
+    def song(track_id):
+
+        track_id = int(track_id)
         song_recs = closest_ten(df, X, track_id)
-        for idx in song_recs:
-            song = curs.execute(
-                f'SELECT DISTINCT * FROM Songs WHERE id=={idx};').fetchone()
-            songlist.append(song)
+        song_recs = [int(value) for value in song_recs]
+        songlist = Songs.query.filter(Songs.id.in_(song_recs)).all()
+        print(songlist)
+        songlist  = [song.track_name for song in songlist]
         return jsonify(songlist)
 
-
     return app            
+    
